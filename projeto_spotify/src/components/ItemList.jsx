@@ -1,7 +1,9 @@
 import React from 'react'
 import SingleItem from './SingleItem'
+import { Link } from 'react-router-dom';
 
-const ItemList = ({title, items}) => {
+
+const ItemList = ({title, items, itemsArray, path, idPath}) => {
     console.log(title);
 
   return (
@@ -9,33 +11,18 @@ const ItemList = ({title, items}) => {
     <div className="item-list">
                 <div className='item-list__header'>
                     <h2>{title} Populares</h2>
-                    <a className= 'item-list__link' href="">Mostrar tudo</a>
+                    <Link className= 'item-list__link' to={path}>Mostrar tudo</Link>
                 </div>
     
                 <div className="item-list__container">
-                    {items == 5 ? (
-                    <>
-                        <SingleItem />
-                        <SingleItem />
-                        <SingleItem />
-                        <SingleItem />
-                        <SingleItem />
-                    </>
-                    ) : (
-                        <>
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                            <SingleItem />
-                        </>
-                    )}
-    
+                    {itemsArray
+                    .filter((currentValue, index) => index < items)
+                    .map((currObj, index) => (
+                    <SingleItem 
+                    idPath ={idPath}
+                    {...currObj}
+                    key = {`${title}-${index} `}/>
+                    ))}
                
                 </div>
             </div>
